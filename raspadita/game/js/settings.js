@@ -835,7 +835,7 @@ var cardsSettings = [
 				},
 				type:'display'
 			},
-			
+
 		],
 		prizes:[
 			{
@@ -2467,19 +2467,19 @@ var gameSettings = {
 //game test display
 var textDisplay = {
 	price:"$[NUMBER]",
-	buy:'Buy $[NUMBER]',
-	buyAgain:'Buy Again $[NUMBER]',
-	scratch:'Scratch your card...',
-	noCredit:'No more credit...',
+	buy:'Jugar $[NUMBER]',
+	buyAgain:'Usar $[NUMBER]',
+	scratch:'Raspa tu carta...',
+	noCredit:'Ya no te quedan créditos...',
 	won:'+$[NUMBER]',
-	exitTitle:"EXIT GAME",
-	exitMessage:'Are you sure\nyou want to\nquit the game?',
-	resultTitle:"YOU WON TOTAL OF",
-	share:'SHARE YOUR SCORE',
+	exitTitle:"Salir",
+	exitMessage:'Está seguro/a \nque deseas\nsalir del juego?',
+	resultTitle:"Ganaste un total de",
+	share:'Retirar Ganancias',
 	resultDesc:'$[NUMBER]'
 };
 
 //Social share, [SCORE] will replace with game score
-var shareEnable = true; //toggle share
+var shareEnable = false; //toggle share
 var shareTitle = 'Highscore on Scratch & Win is $[SCORE]';//social share score title
 var shareMessage = '$[SCORE] is mine new highscore on Scratch & Win game! Try it now!'; //social share score message
