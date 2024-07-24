@@ -17,18 +17,18 @@ var gameSettings = {
   spinStartSpeed: 5, //spin starting speed
   spinEndSpeed: 5, //spin ending speed
   spinSpeed: 10, //spin speed
-  revealTimer: 6, //reveal ball timer
-  bonusBall: true, //toggle bonus ball
+  revealTimer: 2, //reveal ball timer
+  bonusBall: false, //toggle bonus ball
   enablePercentage: false, //option to have result base on percentage
 };
 
 var textDisplay = {
   selectTextDisplay: "Selecciona [NUMBER] Números", //select number text display
-  prizeTableDisplay: "Tabla de premios", //score table text display
+  prizeTableDisplay: "Premios", //score table text display
   numberTextDisplay: "Tus Números", //your score text display
-  matchTextDisplay: "Actertar [NUMBER]", //match text display
+  matchTextDisplay: "Acertar [NUMBER]", //match text display
   scoreTextDisplay: "[NUMBER] Pesos", //prize score text display
-  bonusTextDisplay: "Actertar [NUMBER]", //match bonus text display
+  bonusTextDisplay: "Acertar [NUMBER]", //match bonus text display
   exitMessage: "Está seguro\nQue quieres salir del juego?", //go to main page message
   resultCompleteText: "Ganaste [NUMBER] Pesos!", //result complete text display
   resultFailText: "No ganaste\"T nada!",  //result fail text display
@@ -51,7 +51,7 @@ var bonusScore = [
 
 //Social share, [SCORE] will replace with game score
 var shareEnable = true; //toggle share
-var shareText = "Retirar Ganancias"; //social share message
+var shareText = "Retirar Angel"; //social share message
 var shareTitle = "Highscore on Lottery Numbers Game is [SCORE]PTS.";//social share score title
 var shareMessage = "[SCORE]PTS is mine new highscore on Lottery Numbers Game! Try it now!"; //social share score message
 
