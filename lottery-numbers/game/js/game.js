@@ -23,7 +23,7 @@ var gameSettings = {
 };
 
 var textDisplay = {
-  selectTextDisplay: "Selecciona [NUMBER] Números", //select number text display
+  selectTextDisplay: "Toma [NUMBER] Números", //select number text display
   prizeTableDisplay: "Premios", //score table text display
   numberTextDisplay: "Tus Números", //your score text display
   matchTextDisplay: "Acertar [NUMBER]", //match text display

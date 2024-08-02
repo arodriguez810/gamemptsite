@@ -2540,3 +2540,16 @@ let raspadita = {
   shareTitle: 'Highscore on Scratch & Win is $[SCORE]',
   shareMessage: '$[SCORE] is mine new highscore on Scratch & Win game! Try it now!'
 };
+let thefruits = {
+  "win_occurrence": 90,
+  "slot_cash": 10,
+  "min_reel_loop": 0,
+  "reel_delay": 6,
+  "time_show_win": 2000,
+  "time_show_all_wins": 2000,
+  "audio_enable_on_startup": false,
+  "fullscreen": false,
+  "check_orientation": true,
+  "show_credits": false,
+  "ad_show_counter": 3
+};
