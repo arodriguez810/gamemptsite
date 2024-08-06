@@ -52,6 +52,7 @@ function resizeGameFunc() {
     windowW = window.innerWidth;
     windowH = window.innerHeight;
 
+    //lareso
     windowW = 1500;
     windowH = 680;
 
