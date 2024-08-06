@@ -13,7 +13,7 @@
 	<meta name="HandheldFriendly" content="true"/>
 	<meta name="mobile-web-app-capable" content="yes"/>
 
-	
+
 	<title>MPT Games</title>
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,400i|PT+Serif:700" rel="stylesheet">
 	<link rel="stylesheet" href="dist/css/style.css">
@@ -28,15 +28,7 @@
 	</header>
 
 	<main>
-		<section class="hero text-light text-center">
-			<div class="container-sm">
-				<div class="hero-inner">
-					<h1 class="hero-title h2-mobile mt-0 is-revealing">Seleccione el juego que desea usar.</h1>
-					<p class="hero-paragraph is-revealing">Todos los juegos necesitarán de un crédito para usarse, por
-						favor adquiera los mismos.</p>
-				</div>
-			</div>
-		</section>
+
 
 
 		<section class="features section text-center">

@@ -54,7 +54,7 @@ function resizeGameFunc() {
 
     //lareso
     windowW = 1500;
-    windowH = 680;
+    windowH = 780;
 
     scalePercent = windowW / contentW;
     if ((contentH * scalePercent) > windowH) {
