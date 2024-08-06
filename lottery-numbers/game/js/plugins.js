@@ -1,4 +1,6 @@
 // Avoid `console` errors in browsers that lack a console.
+//1500
+//680
 (function() {
     var method;
     var noop = function () {};
@@ -36,7 +38,7 @@ function checkContentWidth(target){
 function getDeviceVer() {
 	var ua = navigator.userAgent;
 	var uaindex;
-	
+
 	// determine OS
 	if ( ua.match(/(iPad|iPhone|iPod touch)/) ){
 		userOS = 'iOS';
@@ -47,7 +49,7 @@ function getDeviceVer() {
 	}else{
 		userOS = 'unknown';
 	}
-	
+
 	// determine version
 	if ( userOS === 'iOS' && uaindex > -1 ){
 		userOSver = ua.substr( uaindex + 3, 3 ).replace( '_', '.' );
@@ -64,19 +66,19 @@ function shuffle(array) {
 	, temporaryValue
 	, randomIndex
 	;
-	
+
 	// While there remain elements to shuffle...
 	while (0 !== currentIndex) {
 		// Pick a remaining element...
 		randomIndex = Math.floor(Math.random() * currentIndex);
 		currentIndex -= 1;
-		
+
 		// And swap it with the current element.
 		temporaryValue = array[currentIndex];
 		array[currentIndex] = array[randomIndex];
 		array[randomIndex] = temporaryValue;
 	}
-	
+
 	return array;
 }
 
@@ -149,7 +151,7 @@ function getCenterPosition(startX, startY, endX, endY) {
 	var position = {x:0, y:0};
     position.x=(startX+endX)/2;
     position.y=(startY+endY)/2;
-	
+
 	return position;
 }
 

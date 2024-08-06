@@ -52,8 +52,8 @@ function resizeGameFunc() {
     windowW = window.innerWidth;
     windowH = window.innerHeight;
 
-    windowW = 1980;
-    windowH = 1080;
+    windowW = 1500;
+    windowH = 680;
 
     scalePercent = windowW / contentW;
     if ((contentH * scalePercent) > windowH) {
