@@ -25,15 +25,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/angel/OneDrive/Documents/WAMP/gamesmpt/new/games",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/angel/OneDrive/Documents/WAMP/gamesmpt/new/games&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\new\games" />
@@ -67,7 +67,8 @@
       <workItem from="1721930237697" duration="5350000" />
       <workItem from="1722341220057" duration="14339000" />
       <workItem from="1722911152649" duration="2888000" />
-      <workItem from="1722973767122" duration="2135000" />
+      <workItem from="1722973767122" duration="2730000" />
+      <workItem from="1724086641048" duration="103000" />
     </task>
     <servers />
   </component>
