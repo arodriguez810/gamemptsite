@@ -19,7 +19,7 @@ var gameSettings = {
   spinSpeed: 10, //spin speed
   revealTimer: 2, //reveal ball timer
   bonusBall: false, //toggle bonus ball
-  enablePercentage: false, //option to have result base on percentage
+  enablePercentage: true, //option to have result base on percentage
 };
 
 var textDisplay = {
@@ -36,17 +36,17 @@ var textDisplay = {
 
 //score points array and also the total number to reveal
 var score_arr = [
-  {prize: 50, percent: 25},
-  {prize: 100, percent: 20},
-  {prize: 500, percent: 15},
-  {prize: 1000, percent: 10},
-  {prize: 10000, percent: 5},
-  {prize: 100000, percent: 1}
+  {prize: 20, percent: 10},
+  {prize: 35, percent: 1},
+  {prize: 50, percent: 1},
+  {prize: 65, percent: 1},
+  {prize: 100, percent: 1},
+  {prize: 500, percent: 1}
 ];
 
 //bonus score point
 var bonusScore = [
-  {prize: 50000, percent: 3}
+  {prize: 50000, percent: 1}
 ];
 
 //Social share, [SCORE] will replace with game score
