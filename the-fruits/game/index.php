@@ -13,6 +13,9 @@
 		  content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui"/>
 	<meta name="msapplication-tap-highlight" content="no"/>
 
+	<script>
+		<?php include_once "../../access.php" ?>
+	</script>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/createjs-2015.11.26.min.js"></script>
 	<script type="text/javascript" src="js/howler.min.js"></script>
@@ -47,28 +50,71 @@
 <script>
 	$(document).ready(function () {
 		var oMain = new CMain({
-			win_occurrence: 5,        //WIN PERCENTAGE.SET A VALUE FROM 0 TO 100.
-			slot_cash: 10,          //THIS IS THE CURRENT SLOT CASH AMOUNT. THE GAME CHECKS IF THERE IS AVAILABLE CASH FOR WINNINGS.
-			min_reel_loop: 0,          //NUMBER OF REEL LOOPS BEFORE SLOT STOPS
-			reel_delay: 6,            //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
-			time_show_win: 2000,       //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
-			time_show_all_wins: 2000, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
+			win_occurrence: parseInt(GANANCIAS.fruitswinrate),        //WIN PERCENTAGE.SET A VALUE FROM 0 TO 100.
+			slot_cash: FRUITS.slot_cash,          //THIS IS THE CURRENT SLOT CASH AMOUNT. THE GAME CHECKS IF THERE IS AVAILABLE CASH FOR WINNINGS.
+			min_reel_loop: FRUITS.min_reel_loop,          //NUMBER OF REEL LOOPS BEFORE SLOT STOPS
+			reel_delay: FRUITS.reel_delay,            //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
+			time_show_win: FRUITS.time_show_win,       //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
+			time_show_all_wins: FRUITS.time_show_all_wins, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
 			money: 10,               //STARING CREDIT FOR THE USER
 
 			/***********PAYTABLE********************/
 			//EACH SYMBOL PAYTABLE HAS 5 VALUES THAT INDICATES THE MULTIPLIER FOR X1,X2,X3,X4 OR X5 COMBOS
-			paytable_symbol_1: [0, 0, 100, 150, 200], //PAYTABLE FOR SYMBOL 1
-			paytable_symbol_2: [0, 0, 50, 100, 150],  //PAYTABLE FOR SYMBOL 2
-			paytable_symbol_3: [0, 10, 25, 50, 100],  //PAYTABLE FOR SYMBOL 3
-			paytable_symbol_4: [0, 10, 25, 50, 100],  //PAYTABLE FOR SYMBOL 4
-			paytable_symbol_5: [0, 5, 15, 25, 50],    //PAYTABLE FOR SYMBOL 5
-			paytable_symbol_6: [0, 2, 10, 20, 35],    //PAYTABLE FOR SYMBOL 6
-			paytable_symbol_7: [0, 1, 5, 10, 15],     //PAYTABLE FOR SYMBOL 7
+			paytable_symbol_1: [
+				parseInt(GANANCIAS.fruits_cereza1),
+				parseInt(GANANCIAS.fruits_cereza2),
+				parseInt(GANANCIAS.fruits_cereza3),
+				parseInt(GANANCIAS.fruits_cereza4),
+				parseInt(GANANCIAS.fruits_cereza5)
+			]
+			,
+			paytable_symbol_2: [
+				parseInt(GANANCIAS.fruits_pera1),
+				parseInt(GANANCIAS.fruits_pera2),
+				parseInt(GANANCIAS.fruits_pera3),
+				parseInt(GANANCIAS.fruits_pera4),
+				parseInt(GANANCIAS.fruits_pera5)
+			],  //PAYTABLE FOR SYMBOL 2
+			paytable_symbol_3: [
+				parseInt(GANANCIAS.fruits_sandia1),
+				parseInt(GANANCIAS.fruits_sandia2),
+				parseInt(GANANCIAS.fruits_sandia3),
+				parseInt(GANANCIAS.fruits_sandia4),
+				parseInt(GANANCIAS.fruits_sandia5)
+			],  //PAYTABLE FOR SYMBOL 3
+			paytable_symbol_4: [
+				parseInt(GANANCIAS.fruits_naranja1),
+				parseInt(GANANCIAS.fruits_naranja2),
+				parseInt(GANANCIAS.fruits_naranja3),
+				parseInt(GANANCIAS.fruits_naranja4),
+				parseInt(GANANCIAS.fruits_naranja5)
+			],  //PAYTABLE FOR SYMBOL 4
+			paytable_symbol_5: [
+				parseInt(GANANCIAS.fruits_k1),
+				parseInt(GANANCIAS.fruits_k2),
+				parseInt(GANANCIAS.fruits_k3),
+				parseInt(GANANCIAS.fruits_k4),
+				parseInt(GANANCIAS.fruits_k5)
+			],    //PAYTABLE FOR SYMBOL 5
+			paytable_symbol_6: [
+				parseInt(GANANCIAS.fruits_q1),
+				parseInt(GANANCIAS.fruits_q2),
+				parseInt(GANANCIAS.fruits_q3),
+				parseInt(GANANCIAS.fruits_q4),
+				parseInt(GANANCIAS.fruits_q5)
+			],    //PAYTABLE FOR SYMBOL 6
+			paytable_symbol_7: [
+				parseInt(GANANCIAS.fruits_j1),
+				parseInt(GANANCIAS.fruits_j2),
+				parseInt(GANANCIAS.fruits_j3),
+				parseInt(GANANCIAS.fruits_j4),
+				parseInt(GANANCIAS.fruits_j5)
+			],     //PAYTABLE FOR SYMBOL 7
 			/*************************************/
 			audio_enable_on_startup: true, //ENABLE/DISABLE AUDIO WHEN GAME STARTS
 			fullscreen: false,           //SET THIS TO FALSE IF YOU DON'T WANT TO SHOW FULLSCREEN BUTTON
 			check_orientation: true,    //SET TO FALSE IF YOU DON'T WANT TO SHOW ORIENTATION ALERT ON MOBILE DEVICES
-			show_credits: false,         //ENABLE/DISABLE CREDITS BUTTON IN THE MAIN SCREEN
+			show_credits: FRUITS.show_credits,         //ENABLE/DISABLE CREDITS BUTTON IN THE MAIN SCREEN
 			ad_show_counter: 3         //NUMBER OF SPIN PLAYED BEFORE AD SHOWING
 			//
 			//// THIS FEATURE  IS ACTIVATED ONLY WITH CTL ARCADE PLUGIN.///////////////////////////
@@ -152,7 +198,7 @@
 <!--//lareso-->
 <canvas id="canvas" class='ani_hack' width="1950" height="820"></canvas>
 <div data-orientation="landscape" class="orientation-msg-container"><p class="orientation-msg-text">Please rotate your
-	device</p></div>
+		device</p></div>
 <div id="block_game"
 	 style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%; display:none"></div>
 </body>
