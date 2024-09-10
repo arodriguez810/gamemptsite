@@ -27,10 +27,13 @@
 
 </head>
 <body data-path-to-root="/" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
+<script>
+	<?php include_once "access.php" ?>
+</script>
 <section class="u-clearfix u-palette-1-dark-3 u-section-1" id="sec-edf9">
 	<div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-none u-gallery-1" data-pswp-uid="1">
 		<div class="u-gallery-inner u-gallery-inner-1">
-			<div class="u-effect-hover-zoom u-gallery-item" onclick="location.href='lottery-numbers/game'">
+			<div class="u-effect-hover-zoom u-gallery-item" onclick="location.href='lottery-numbers/game'+location.search">
 				<div class="u-back-slide" data-image-width="4000" data-image-height="3000">
 					<img class="u-back-image u-expanded" src="games/lottery-numbers.png<?php echo '?a=' . time(); ?>">
 				</div>
@@ -38,14 +41,14 @@
 			</div>
 			<div class="u-effect-hover-zoom u-gallery-item">
 				<div class="u-back-slide" data-image-width="1200" data-image-height="1684"
-					 onclick="location.href='raspadita/game'">
+					 onclick="location.href='raspadita/game'+location.search">
 					<img class="u-back-image u-expanded" src="games/raspadita.png<?php echo '?a=' . time(); ?>">
 				</div>
 				<div class="u-over-slide u-shading u-over-slide-2"></div>
 			</div>
 			<div class="u-effect-hover-zoom u-gallery-item">
 				<div class="u-back-slide" data-image-width="1200" data-image-height="866"
-					 onclick="location.href='the-fruits/game'">
+					 onclick="location.href='the-fruits/game'+location.search">
 					<img class="u-back-image u-expanded" src="games/thefruits.png<?php echo '?a=' . time(); ?>">
 				</div>
 				<div class="u-over-slide u-shading u-over-slide-3"></div>

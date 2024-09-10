@@ -80,6 +80,24 @@
 	<!-- CANVAS START-->
 	<div id="canvasHolder">
 		<canvas id="gameCanvas" width="1500" height="680"></canvas>
+		<style>
+			#datax {
+				width: 1300px;
+				height: 48px;
+				left: 100px;
+				font-size: 40px;
+				top: 768px;
+				background-color: #2c2c2c;
+				vertical-align: middle;
+				color: white;
+				position: fixed;
+				text-align: center;
+			}
+		</style>
+		<div id="datax">
+			Hola
+		</div>
+
 	</div>
 	<!-- CANVAS END-->
 
@@ -101,6 +119,8 @@
 <script src="js/sound.js"></script>
 <script src="js/canvas.js"></script>
 <script src="js/p2.js"></script>
+<script src="js/sweetalert2.js"></script>
+
 
 <script>
 
@@ -115,6 +135,7 @@
 	 */
 
 	var gameSettings = LOTERY.gameSettings;
+
 
 	var textDisplay = LOTERY.textDisplay;
 
@@ -303,7 +324,12 @@
 		});
 
 		buttonSphereStart.cursor = "pointer";
-		buttonSphereStart.addEventListener("click", function (evt) {
+		buttonSphereStart.addEventListener("click", async function (evt) {
+			if (parseInt(CREDIT_LOTERIA.credito) <= 0) {
+				Swal.fire("GAMEMPT", `No posee créditos suficientes para jugar`, 'error');
+				return;
+			}
+
 			startSpin();
 		});
 
@@ -357,9 +383,11 @@
 				stopGame();
 
 				if (gameData.matchNum != -1) {
-					playSound('soundComplete');
-					resultTitleTxt.text = textDisplay.resultCompleteText.replace('[NUMBER]', addCommas(playerData.score));
-					saveGame(playerData.score);
+					Acumular(playerData.score).then(d => {
+						playSound('soundComplete');
+						resultTitleTxt.text = textDisplay.resultCompleteText.replace('[NUMBER]', addCommas(playerData.score));
+						saveGame(playerData.score);
+					})
 				} else {
 					playSound('soundFail');
 					resultTitleTxt.text = textDisplay.resultFailText;
@@ -513,7 +541,8 @@
 		}
 	}
 
-	function proceedStartSpin(result) {
+	async function proceedStartSpin(result) {
+		await useCredit();
 		if (result != undefined) {
 			gameData.revealArray = result.numbers;
 		}
@@ -526,7 +555,6 @@
 		tableContainer.visible = true;
 
 		selectTitleTxt.text = textDisplay.prizeTableDisplay;
-
 		shuffle(gameData.numberArray);
 		setSelectBalls();
 		gameData.spin = true;
@@ -1322,8 +1350,20 @@
 		}
 	}
 
+	function randomNumber(min, max) {
+		return Math.random() * (max - min) + min;
+	}
+
 	function getResultOnPercent() {
+		// debugger
 		shuffle(gameData.percentageArray);
+
+		// for (const d of score_arr) {
+		// 	let nowRandom = randomNumber(1,100);
+		// 	if(nowRandom<d.percent)
+		//
+		// }
+
 
 		var selectArray = [];
 		for (var n = 0; n < gameData.selectArray.length; n++) {
@@ -1443,7 +1483,7 @@
 	 * SHARE - This is the function that runs to open share url
 	 *
 	 */
-	function share(action) {
+	async function share(action) {
 		gtag('event', 'click', {'event_category': 'share', 'event_label': action});
 
 		var loc = location.href
@@ -1455,6 +1495,8 @@
 		title = shareTitle.replace("[SCORE]", addCommas(playerData.score));
 		text = shareMessage.replace("[SCORE]", addCommas(playerData.score));
 		var shareurl = '';
+
+		await Acumular(playerData.score);
 
 		if (action == 'twitter') {
 			shareurl = 'https://twitter.com/intent/tweet?url=' + loc + '&text=' + text;
@@ -1471,6 +1513,63 @@
 
 
 </script>
+
+<script>
+	formatMoney = (nStr) => {
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+		}
+		return x1 + x2;
+	}
+	updateDatax = () => {
+		let d = CREDIT_LOTERIA;
+		$("#datax").html(`
+Estación: <b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
+Créditos: <b style="color: palevioletred">${parseInt(d.credito)}</b>
+Acumulado: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+	};
+	useCredit = () => new Promise(async (resolve, reject) => {
+		Swal.fire("GAMEMPT", `Actualizando Créditos`, 'info');
+		Swal.showLoading();
+		CREDIT_LOTERIA.credito = parseInt(CREDIT_LOTERIA.credito) - 1;
+		$.ajax({
+			type: "POST",
+			url: `${API}/estacion/update`,
+			contentType: 'application/json',
+			data: `{"credito_1":${CREDIT_LOTERIA.credito},"where":[{"value":${CREDIT_LOTERIA.id}}]}`,
+			success: () => {
+				Swal.close();
+				updateDatax();
+				resolve(true);
+			}
+		});
+	});
+	Acumular = (add) => new Promise(async (resolve, reject) => {
+		Swal.fire("GAMEMPT", `Acumulando Premio`, 'info');
+		Swal.showLoading();
+		CREDIT_LOTERIA.acumulado = parseInt(CREDIT_LOTERIA.acumulado) + add;
+		$.ajax({
+			type: "POST",
+			url: `${API}/estacion/update`,
+			contentType: 'application/json',
+			data: `{"acumulado_1":${CREDIT_LOTERIA.acumulado},"where":[{"value":${CREDIT_LOTERIA.id}}]}`,
+			success: () => {
+				Swal.close();
+				updateDatax();
+				resolve(true);
+			}
+		});
+	});
+	$(document).ready(() => {
+		updateDatax();
+	});
+</script>
+
 <script src="js/mobile.js"></script>
 <script src="js/main.js"></script>
 <script src="js/loader.js"></script>

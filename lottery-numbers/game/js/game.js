@@ -393,8 +393,14 @@ function startGame() {
  * START SPIN - This is the function that runs to start spin
  *
  */
-function startSpin() {
+async function startSpin() {
+  if (parseInt(CREDIT_LOTERIA.credito) <= 0) {
+    Swal.fire("GAMEMPT", `No posee cr▲ditos suficientes para jugar`, 'error');
+    return;
+  }
+  await useCredit();
   //memberpayment
+  debugger
   if (typeof memberData != 'undefined' && memberSettings.enableMembership && !memberData.ready) {
     return;
   }

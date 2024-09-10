@@ -30,12 +30,14 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/angel/OneDrive/Documents/WAMP/gamesmpt",
+    "last_opened_file_path": "C:/Users/angel/OneDrive/Documents/WAMP/gamesmpt/lottery-numbers/game/js",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\lottery-numbers\game\js" />
+      <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\js" />
       <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt" />
       <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\new\games" />
     </key>
@@ -70,7 +72,8 @@
       <workItem from="1722911152649" duration="2888000" />
       <workItem from="1722973767122" duration="2730000" />
       <workItem from="1724086641048" duration="2137000" />
-      <workItem from="1724254167410" duration="2490000" />
+      <workItem from="1724254167410" duration="10167000" />
+      <workItem from="1725987744991" duration="9702000" />
     </task>
     <servers />
   </component>
