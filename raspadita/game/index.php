@@ -69,6 +69,23 @@
 	<!-- CANVAS START-->
 	<div id="canvasHolder">
 		<canvas id="gameCanvas" width="1280" height="768"></canvas>
+		<style>
+			#datax {
+				width: 1058px;
+				height: 48px;
+				left: 220px;
+				font-size: 40px;
+				top: 697px;
+				background-color: #2c2c2c;
+				vertical-align: middle;
+				color: white;
+				position: fixed;
+				text-align: center;
+			}
+		</style>
+		<div id="datax">
+
+		</div>
 	</div>
 	<!-- CANVAS END-->
 
@@ -485,7 +502,7 @@
 			x: 100,
 			y: 0
 		},
-		credit: 100, //start credit
+		credit: parseInt(CREDIT_RASPADITA.credito), //start credit
 		scratchStrokeNum: [20, 30], //scratch stroke number
 		revealScratchStrokeNum: [25, 35], //scratch stroke number
 		revealSpeed: RASPADITA.gameSettings.revealSpeed, //reveal speed
@@ -508,6 +525,67 @@
 <script src="js/main.js"></script>
 <script src="js/loader.js"></script>
 <script src="js/init.js"></script>
+<script src="js/sweetalert2.js"></script>
+<script>
+	formatMoney = (nStr) => {
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+		}
+		return x1 + x2;
+	}
+	updateDatax = () => {
+		let d = CREDIT_RASPADITA;
+		$("#datax").html(`
+Estación: <b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
+Acumulado: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+	};
+	useCredit = (count) => new Promise(async (resolve, reject) => {
+		Swal.fire("GAMEMPT", `Actualizando Créditos`, 'info');
+		Swal.showLoading();
+		CREDIT_RASPADITA.credito = count;
+		CREDIT_RASPADITA.acumulado = count;
+		let data = {
+			"credito_2": CREDIT_RASPADITA.credito,
+			"acumulado_2": CREDIT_RASPADITA.credito,
+			"where": [{"value": CREDIT_RASPADITA.id}]
+		};
+		$.ajax({
+			type: "POST",
+			url: `${API}/estacion/update`,
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: () => {
+				Swal.close();
+				updateDatax();
+				resolve(true);
+			}
+		});
+	});
+	Acumular = (add) => new Promise(async (resolve, reject) => {
+		Swal.fire("GAMEMPT", `Acumulando Premio`, 'info');
+		Swal.showLoading();
+		CREDIT_RASPADITA.acumulado = parseInt(CREDIT_RASPADITA.acumulado) + add;
+		$.ajax({
+			type: "POST",
+			url: `${API}/estacion/update`,
+			contentType: 'application/json',
+			data: `{"acumulado_1":${CREDIT_RASPADITA.acumulado},"where":[{"value":${CREDIT_RASPADITA.id}}]}`,
+			success: () => {
+				Swal.close();
+				updateDatax();
+				resolve(true);
+			}
+		});
+	});
+	$(document).ready(() => {
+		updateDatax();
+	});
+</script>
 </body>
 
 <!-- Google tag (gtag.js) -->

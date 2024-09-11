@@ -274,6 +274,7 @@ function CGame(oData) {
       SLOT_CASH -= _iTotWin;
 
       if (_iTotWin > 0) {
+        useCredit(_iMoney);
         _oInterface.refreshMoney(_iMoney);
         _oInterface.refreshWinText(_iTotWin);
       }
@@ -381,7 +382,7 @@ function CGame(oData) {
     }
 
     var iNewTotalBet = _iCurBet * _iLastLineActive;
-    iNewTotalBet = parseFloat(iNewTotalBet.toFixed(2));
+    iNewTotalBet = parseFloat(iNewTotalBet.toFixed(0));
 
     _iTotBet = iNewTotalBet;
     _oInterface.refreshTotalBet(_iTotBet);
@@ -396,22 +397,22 @@ function CGame(oData) {
   };
 
   this.changeCoinBet = function () {
-    var iNewBet = Math.floor((_iCurBet + 0.05) * 100) / 100;
+    var iNewBet = (_iCurBet + 1);
     var iNewTotalBet;
 
     if (iNewBet > MAX_BET) {
       _iCurBet = MIN_BET;
       _iTotBet = _iCurBet * _iLastLineActive;
-      _iTotBet = parseFloat(_iTotBet.toFixed(2));
+      _iTotBet = parseFloat(_iTotBet.toFixed(0));
 
       _oInterface.refreshBet(_iCurBet);
       _oInterface.refreshTotalBet(_iTotBet);
       iNewTotalBet = _iTotBet;
     } else {
       iNewTotalBet = iNewBet * _iLastLineActive;
-      iNewTotalBet = parseFloat(iNewTotalBet.toFixed(2));
+      iNewTotalBet = parseFloat(iNewTotalBet.toFixed(0));
 
-      _iCurBet += 0.05;
+      _iCurBet += 1;
       _iCurBet = Math.floor(_iCurBet * 100) / 100;
       _iTotBet = iNewTotalBet;
       _oInterface.refreshBet(_iCurBet);
@@ -471,7 +472,8 @@ function CGame(oData) {
     stopSound("win");
     //CHECK IF ENOUGH MONEY
     if (_iMoney < _iTotBet) {
-      _oRechargePanel.show();
+      Swal.fire("GAMEMPT", `No posee créditos suficientes para jugar o su apuesta es más alta`, 'error');
+      return;
       return;
     }
 
@@ -496,40 +498,42 @@ function CGame(oData) {
     MIN_WIN *= _iCurBet;
 
     _iMoney -= _iTotBet;
-    _oInterface.refreshMoney(_iMoney);
-    SLOT_CASH += _iTotBet;
+    useCredit(_iMoney).then(d => {
+      _oInterface.refreshMoney(_iMoney);
+      SLOT_CASH += _iTotBet;
 
-    $(s_oMain).trigger("bet_placed", {bet: _iCurBet, tot_bet: _iTotBet});
-    //CHECK IF THERE IS MINIMUM AMOUNT FOR AT LEAST WORST WINNING
-    if (SLOT_CASH < MIN_WIN) {
-      //PLAYER MUST LOSE
-      do {
-        var bRet = this.generateFinalSymbols();
-      } while (bRet === true);
-    } else {
-      //RANDOM TO ASSIGN A WIN OR NOT
-      var iRandSpin = Math.floor(Math.random() * 101);
-
-      if (iRandSpin > WIN_OCCURRENCE) {
-        //PLAYER LOSES
+      $(s_oMain).trigger("bet_placed", {bet: _iCurBet, tot_bet: _iTotBet});
+      //CHECK IF THERE IS MINIMUM AMOUNT FOR AT LEAST WORST WINNING
+      if (SLOT_CASH < MIN_WIN) {
+        //PLAYER MUST LOSE
         do {
           var bRet = this.generateFinalSymbols();
         } while (bRet === true);
-
       } else {
-        //PLAYER WINS
-        do {
-          var bRet = this.generateFinalSymbols();
-        } while (bRet === false || (_iTotWin * _iCurBet) > SLOT_CASH);
+        //RANDOM TO ASSIGN A WIN OR NOT
+        var iRandSpin = Math.floor(Math.random() * 101);
+
+        if (iRandSpin > WIN_OCCURRENCE) {
+          //PLAYER LOSES
+          do {
+            var bRet = this.generateFinalSymbols();
+          } while (bRet === true);
+
+        } else {
+          //PLAYER WINS
+          do {
+            var bRet = this.generateFinalSymbols();
+          } while (bRet === false || (_iTotWin * _iCurBet) > SLOT_CASH);
+        }
       }
-    }
 
 
-    _oInterface.hideAllLines();
-    _oInterface.disableGuiButtons();
+      _oInterface.hideAllLines();
+      _oInterface.disableGuiButtons();
 
 
-    _iCurState = GAME_STATE_SPINNING;
+      _iCurState = GAME_STATE_SPINNING;
+    });
   };
 
   this._printSymbol = function () {

@@ -95,9 +95,8 @@
 			}
 		</style>
 		<div id="datax">
-			Hola
-		</div>
 
+		</div>
 	</div>
 	<!-- CANVAS END-->
 

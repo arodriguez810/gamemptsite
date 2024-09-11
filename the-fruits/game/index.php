@@ -26,7 +26,31 @@
 	<script type="text/javascript" src="js/sprite_lib.js"></script>
 	<script type="text/javascript" src="js/settings.js"></script>
 	<script type="text/javascript" src="js/CSlotSettings.js"></script>
-	<script type="text/javascript" src="js/CLang.js"></script>
+	<script>
+		var TEXT_MONEY = FRUITS.TEXT_MONEY;
+		var TEXT_PLAY = FRUITS.TEXT_PLAY;
+		var TEXT_BET = FRUITS.TEXT_BET;
+		var TEXT_COIN = FRUITS.TEXT_COIN;
+		var TEXT_MAX_BET = FRUITS.TEXT_MAX_BET;
+		var TEXT_INFO = FRUITS.TEXT_INFO;
+		var TEXT_LINES = FRUITS.TEXT_LINES;
+		var TEXT_SPIN = FRUITS.TEXT_SPIN;
+		var TEXT_WIN = FRUITS.TEXT_WIN;
+		var TEXT_HELP_WILD = FRUITS.TEXT_HELP_WILD;
+		var TEXT_CREDITS_DEVELOPED = FRUITS.TEXT_CREDITS_DEVELOPED;
+		var TEXT_CURRENCY = FRUITS.TEXT_CURRENCY;
+		var TEXT_PRELOADER_CONTINUE = FRUITS.TEXT_PRELOADER_CONTINUE;
+		var TEXT_NO_MONEY = FRUITS.TEXT_NO_MONEY;
+		var TEXT_RECHARGE = FRUITS.TEXT_RECHARGE;
+
+		var TEXT_SHARE_IMAGE = "200x200.jpg";
+		var TEXT_SHARE_TITLE = FRUITS.TEXT_SHARE_TITLE;
+		var TEXT_SHARE_MSG1 = FRUITS.TEXT_SHARE_MSG1;
+		var TEXT_SHARE_MSG2 = FRUITS.TEXT_SHARE_MSG2;
+		var TEXT_SHARE_SHARE1 = FRUITS.TEXT_SHARE_SHARE1;
+		var TEXT_SHARE_SHARE2 = FRUITS.TEXT_SHARE_SHARE2;
+
+	</script>
 	<script type="text/javascript" src="js/CPreloader.js"></script>
 	<script type="text/javascript" src="js/CMain.js"></script>
 	<script type="text/javascript" src="js/CTextButton.js"></script>
@@ -47,6 +71,67 @@
 </head>
 <body ondragstart="return false;" ondrop="return false;">
 <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+<script src="js/sweetalert2.js"></script>
+<script>
+	formatMoney = (nStr) => {
+		nStr += '';
+		x = nStr.split('.');
+		x1 = x[0];
+		x2 = x.length > 1 ? '.' + x[1] : '';
+		var rgx = /(\d+)(\d{3})/;
+		while (rgx.test(x1)) {
+			x1 = x1.replace(rgx, '$1' + ',' + '$2');
+		}
+		return x1 + x2;
+	}
+	updateDatax = () => {
+		let d = CREDIT_FRUITS;
+		$("#datax").html(`
+Estación: <br><b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
+Acumulado: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+	};
+	useCredit = (count) => new Promise(async (resolve, reject) => {
+		Swal.fire("GAMEMPT", `Actualizando Créditos`, 'info');
+		Swal.showLoading();
+		CREDIT_FRUITS.credito = count;
+		CREDIT_FRUITS.acumulado = count;
+		let data = {
+			"credito_3": CREDIT_FRUITS.credito,
+			"acumulado_3": CREDIT_FRUITS.credito,
+			"where": [{"value": CREDIT_FRUITS.id}]
+		};
+		$.ajax({
+			type: "POST",
+			url: `${API}/estacion/update`,
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: () => {
+				Swal.close();
+				updateDatax();
+				resolve(true);
+			}
+		});
+	});
+	Acumular = (add) => new Promise(async (resolve, reject) => {
+		Swal.fire("GAMEMPT", `Acumulando Premio`, 'info');
+		Swal.showLoading();
+		CREDIT_FRUITS.acumulado = parseInt(CREDIT_FRUITS.acumulado) + add;
+		$.ajax({
+			type: "POST",
+			url: `${API}/estacion/update`,
+			contentType: 'application/json',
+			data: `{"acumulado_3":${CREDIT_FRUITS.acumulado},"where":[{"value":${CREDIT_FRUITS.id}}]}`,
+			success: () => {
+				Swal.close();
+				updateDatax();
+				resolve(true);
+			}
+		});
+	});
+	$(document).ready(() => {
+		updateDatax();
+	});
+</script>
 <script>
 	$(document).ready(function () {
 		var oMain = new CMain({
@@ -56,7 +141,7 @@
 			reel_delay: FRUITS.reel_delay,            //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
 			time_show_win: FRUITS.time_show_win,       //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
 			time_show_all_wins: FRUITS.time_show_all_wins, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
-			money: 10,               //STARING CREDIT FOR THE USER
+			money: parseInt(CREDIT_FRUITS.acumulado),               //STARING CREDIT FOR THE USER
 
 			/***********PAYTABLE********************/
 			//EACH SYMBOL PAYTABLE HAS 5 VALUES THAT INDICATES THE MULTIPLIER FOR X1,X2,X3,X4 OR X5 COMBOS
@@ -125,9 +210,9 @@
 
 		$(oMain).on("recharge", function (evt) {
 			//INSERT HERE YOUR RECHARGE SCRIPT THAT RETURN MONEY TO RECHARGE
-			var iMoney = 10;
-			if (s_oGame !== null) {
-				s_oGame.setMoney(iMoney);
+			if (parseInt(CREDIT_FRUITS.credito) <= 0) {
+				Swal.fire("GAMEMPT", `Para recargar por favor indicar al encargado`, 'error');
+				return;
 			}
 		});
 
@@ -196,7 +281,26 @@
 </div>
 
 <!--//lareso-->
-<canvas id="canvas" class='ani_hack' width="1950" height="820"></canvas>
+<div>
+	<canvas id="canvas" class='ani_hack' width="1950" height="820"></canvas>
+	<style>
+		#datax {
+			width: 331px;
+			height: 560px;
+			left: 1288px;
+			font-size: 40px;
+			top: 127px;
+			background-color: #2c2c2c;
+			vertical-align: middle;
+			color: white;
+			position: fixed;
+			text-align: center;
+		}
+	</style>
+	<div id="datax">
+
+	</div>
+</div>
 <div data-orientation="landscape" class="orientation-msg-container"><p class="orientation-msg-text">Please rotate your
 		device</p></div>
 <div id="block_game"

@@ -25,21 +25,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/angel/OneDrive/Documents/WAMP/gamesmpt/lottery-numbers/game/js",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/angel/OneDrive/Documents/WAMP/gamesmpt/the-fruits/game/js&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\the-fruits\game\js" />
+      <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\raspadita\game\js" />
       <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\lottery-numbers\game\js" />
       <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\js" />
       <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt" />
-      <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt\new\games" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\angel\OneDrive\Documents\WAMP\gamesmpt" />
@@ -73,7 +74,9 @@
       <workItem from="1722973767122" duration="2730000" />
       <workItem from="1724086641048" duration="2137000" />
       <workItem from="1724254167410" duration="10167000" />
-      <workItem from="1725987744991" duration="9702000" />
+      <workItem from="1725987744991" duration="10552000" />
+      <workItem from="1725999703207" duration="1048000" />
+      <workItem from="1726044708862" duration="6116000" />
     </task>
     <servers />
   </component>
