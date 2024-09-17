@@ -474,11 +474,7 @@ function CGame(oData) {
     if (_iMoney < _iTotBet) {
       Swal.fire("GAMEMPT", `No posee créditos suficientes para jugar o su apuesta es más alta`, 'error');
       return;
-      return;
     }
-
-
-    playSound("reels", 1, false);
 
 
     _oInterface.disableBetBut(true);
@@ -499,6 +495,7 @@ function CGame(oData) {
 
     _iMoney -= _iTotBet;
     useCredit(_iMoney).then(d => {
+      playSound("reels", 1, false);
       _oInterface.refreshMoney(_iMoney);
       SLOT_CASH += _iTotBet;
 

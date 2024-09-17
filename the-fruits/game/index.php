@@ -151,8 +151,7 @@ Acumulado: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumula
 				parseInt(GANANCIAS.fruits_cereza3),
 				parseInt(GANANCIAS.fruits_cereza4),
 				parseInt(GANANCIAS.fruits_cereza5)
-			]
-			,
+			],
 			paytable_symbol_2: [
 				parseInt(GANANCIAS.fruits_pera1),
 				parseInt(GANANCIAS.fruits_pera2),

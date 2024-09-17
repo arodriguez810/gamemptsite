@@ -69,13 +69,14 @@
 	<!-- CANVAS START-->
 	<div id="canvasHolder">
 		<canvas id="gameCanvas" width="1280" height="768"></canvas>
+		<!--lareso-->
 		<style>
 			#datax {
 				width: 1058px;
 				height: 48px;
 				left: 220px;
 				font-size: 40px;
-				top: 697px;
+				top: 617px;
 				background-color: #2c2c2c;
 				vertical-align: middle;
 				color: white;
@@ -131,7 +132,7 @@
 			bonusMax: 0,
 			overallPercent: 100,
 			price: {
-				value: 5,
+				value: parseInt(GANANCIAS.raspadita_cost_per_game),
 				x: 25,
 				y: 50
 			},
@@ -542,8 +543,34 @@
 		let d = CREDIT_RASPADITA;
 		$("#datax").html(`
 Estación: <b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
-Acumulado: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
 	};
+	verifyData = () => new Promise(async (resolve, reject) => {
+		Swal.fire("GAMEMPT", `Verificando Créditos`, 'info');
+		Swal.showLoading();
+		$.ajax({
+			type: "POST",
+			url: `${API}/estacion/list`,
+			contentType: 'application/json',
+			data: JSON.stringify({
+				"limit": 1,
+				order: "asc",
+				orderby: "id",
+				page: 1,
+				"where": [{"value": CREDIT_RASPADITA.id}]
+			}),
+			success: (data) => {
+				if (data.data !== undefined) {
+					let newData = data.data[0];
+					CREDIT_RASPADITA.credito = parseFloat(newData.credito_2);
+					CREDIT_RASPADITA.acumulado = CREDIT_RASPADITA.credito;
+					updateDatax();
+				}
+				Swal.close();
+				resolve(true);
+			}
+		});
+	});
 	useCredit = (count) => new Promise(async (resolve, reject) => {
 		Swal.fire("GAMEMPT", `Actualizando Créditos`, 'info');
 		Swal.showLoading();
@@ -574,7 +601,7 @@ Acumulado: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))
 			type: "POST",
 			url: `${API}/estacion/update`,
 			contentType: 'application/json',
-			data: `{"acumulado_1":${CREDIT_RASPADITA.acumulado},"where":[{"value":${CREDIT_RASPADITA.id}}]}`,
+			data: `{"acumulado_2":${CREDIT_RASPADITA.acumulado},"where":[{"value":${CREDIT_RASPADITA.id}}]}`,
 			success: () => {
 				Swal.close();
 				updateDatax();
