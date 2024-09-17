@@ -88,7 +88,7 @@
 		let d = CREDIT_FRUITS;
 		$("#datax").html(`
 Estación: <br><b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
-Acumulado: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+Disponible: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
 	};
 	useCredit = (count) => new Promise(async (resolve, reject) => {
 		Swal.fire("GAMEMPT", `Actualizando Créditos`, 'info');
