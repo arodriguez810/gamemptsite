@@ -281,19 +281,20 @@ Acumulado: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumula
 
 <!--//lareso-->
 <div>
-	<canvas id="canvas" class='ani_hack' width="1950" height="820"></canvas>
+	<canvas id="canvas" class='ani_hack' width="1950" height="950"></canvas>
 	<style>
 		#datax {
-			width: 331px;
-			height: 560px;
-			left: 1288px;
+			width: 208px;
+			height: 537px;
+			left: 0;
 			font-size: 40px;
-			top: 127px;
+			top: 0px;
 			background-color: #2c2c2c;
 			vertical-align: middle;
 			color: white;
 			position: fixed;
 			text-align: center;
+			background-color: #401705;
 		}
 	</style>
 	<div id="datax">

@@ -31,7 +31,7 @@
 	<?php include_once "access.php" ?>
 </script>
 <section class="u-clearfix u-palette-1-dark-3 u-section-1" id="sec-edf9">
-	<div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-none u-gallery-1" data-pswp-uid="1">
+	<div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-none u-gallery-1" data-pswp-uid="1" style="height: 674px">
 		<div class="u-gallery-inner u-gallery-inner-1">
 			<div class="u-effect-hover-zoom u-gallery-item" onclick="location.href='lottery-numbers/game'+location.search">
 				<div class="u-back-slide" data-image-width="4000" data-image-height="3000">

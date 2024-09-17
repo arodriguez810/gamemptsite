@@ -84,11 +84,11 @@
 		<!--lareso-->
 		<style>
 			#datax {
-				width: 1300px;
+				width: 1280px;
 				height: 48px;
-				left: 100px;
+				left: 110px;
 				font-size: 40px;
-				top: 688px;
+				top: 627px;
 				background-color: #2c2c2c;
 				vertical-align: middle;
 				color: white;
