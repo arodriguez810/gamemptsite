@@ -289,7 +289,6 @@ Acumulado: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumula
 			left: 0;
 			font-size: 23px;
 			top: 0px;
-			background-color: #2c2c2c;
 			vertical-align: middle;
 			color: white;
 			position: fixed;
