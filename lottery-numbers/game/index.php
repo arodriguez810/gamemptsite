@@ -1586,7 +1586,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 			type: "POST",
 			url: `${API}/estacion/update`,
 			contentType: 'application/json',
-			data: `{"acumulado_1":${CREDIT_LOTERIA.acumulado},"where":[{"value":${CREDIT_LOTERIA.id}}]}`,
+			data: `{"credito_1":${CREDIT_LOTERIA.acumulado},"acumulado_1":${CREDIT_LOTERIA.acumulado},"where":[{"value":${CREDIT_LOTERIA.id}}]}`,
 			success: () => {
 				Swal.close();
 				updateDatax();
