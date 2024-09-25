@@ -51,7 +51,7 @@
 										 src="img/raspadita.png"
 									</img>
 								</div>
-								<h4 class="feature-title h3-mobile">Raspadita</h4>
+								<h4 class="feature-title h3-mobile">Raspa y Gana</h4>
 								<p class="text-sm">Juego donde podrás raspar.</p>
 							</div>
 						</div>
@@ -101,7 +101,7 @@
 						</div>
 
 						<div class="feature-extended-body">
-							<h3 class="mt-0">Raspadita</h3>
+							<h3 class="mt-0">Raspa y Gana</h3>
 							<p>Descripción más amplia sobre el juego</p>
 						</div>
 					</div>
@@ -177,7 +177,7 @@
 							<div class="pricing-table-inner">
 								<div class="pricing-table-main">
 									<div class="pricing-table-header">
-										<div class="pricing-table-title mt-12 mb-16 text-primary">Raspadita</div>
+										<div class="pricing-table-title mt-12 mb-16 text-primary">Raspa y Gana</div>
 										<div class="pricing-table-price mb-24 pb-32"><span
 												class="pricing-table-price-currency h3">$</span><span
 												class="pricing-table-price-amount h1">150.00/cu</span></div>

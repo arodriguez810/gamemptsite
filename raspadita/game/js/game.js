@@ -1141,13 +1141,14 @@ async function buyCard() {
     return;
   }
 
+  await verifyData();
   if (playerData.credit < cardsSettings[gameData.cardIndex].price.value) {
     animateCredit();
     playSound('soundError');
-    await verifyData();
+
     let need = parseFloat(GANANCIAS.raspadita_cost_per_game)
     if (parseInt(CREDIT_RASPADITA.credito) <= need) {
-      Swal.fire("GAMEMPT", `No posee créditos suficientes para jugar, necesita por lo menos ${formatMoney(need)} Pesos disponibles`, 'error');
+      Swal.fire("GAME FORTUNE", `No posee créditos suficientes para jugar, necesita por lo menos ${formatMoney(need)} Pesos disponibles`, 'error');
       return;
     }
     return;

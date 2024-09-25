@@ -472,7 +472,7 @@ function CGame(oData) {
     stopSound("win");
     //CHECK IF ENOUGH MONEY
     if (_iMoney < _iTotBet) {
-      Swal.fire("GAMEMPT", `No posee créditos suficientes para jugar o su apuesta es más alta`, 'error');
+      Swal.fire("GAME FORTUNE", `No posee créditos suficientes para jugar o su apuesta es más alta`, 'error');
       return;
     }
 

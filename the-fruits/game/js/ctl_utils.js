@@ -137,14 +137,13 @@ function sizeHandler() {
   } else {
     h = getSize("Height");
   }
-  var w = getSize("Width");
-  _checkOrientation(w, h);
-  if (w !== 1920 || h !== 1080) {
-    w = 2000;
-    h = 1000;
-  }
-  var multiplier = Math.min((h / CANVAS_HEIGHT), (w / CANVAS_WIDTH));
 
+  var w = getSize("Width");
+  h-=35;
+  _checkOrientation(w, h);
+
+  // CANVAS_HEIGHT += 35;
+  var multiplier = Math.min((h / CANVAS_HEIGHT), (w / CANVAS_WIDTH));
 
   var destW = CANVAS_WIDTH * multiplier;
   var destH = CANVAS_HEIGHT * multiplier;
@@ -502,5 +501,3 @@ if (screenfull.enabled) {
     }
   });
 }
-
-

@@ -298,6 +298,7 @@ function buildGameCanvas() {
   buttonSoundOff = new createjs.Bitmap(loader.getResult('buttonSoundOff'));
   centerReg(buttonSoundOff);
   buttonSoundOn.visible = false;
+  buttonFullscreen.visible = false;
   buttonExit = new createjs.Bitmap(loader.getResult('buttonExit'));
   centerReg(buttonExit);
   buttonSettings = new createjs.Bitmap(loader.getResult('buttonSettings'));

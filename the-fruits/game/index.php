@@ -13,9 +13,9 @@
 		  content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui"/>
 	<meta name="msapplication-tap-highlight" content="no"/>
 
-	<script>
-		<?php include_once "../../access.php" ?>
-	</script>
+
+	<?php include_once "../../access.php" ?>
+
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/createjs-2015.11.26.min.js"></script>
 	<script type="text/javascript" src="js/howler.min.js"></script>
@@ -86,12 +86,22 @@
 	}
 	updateDatax = () => {
 		let d = CREDIT_FRUITS;
+		let probs = [];
+		if (parseInt(GANANCIAS.debug)) {
+			if (CARTA.presupuesto()) {
+				probs.push(`<br>Probabilidad de Ganar:<b style="color: cornflowerblue">{GANANCIAS.fruitswinrate}%</b>`);
+				probs.push(`<br>Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
+				probs.push(`Premios:<b style="color: cornflowerblue">$${CARTA.premioMaximo()}</b>`);
+			}
+			$("#datax").css("height", "8%");
+		}
 		$("#datax").html(`
-Estación: <br><b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
-Disponible: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+Estación:<b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
+Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
 	};
 	useCredit = (count) => new Promise(async (resolve, reject) => {
-		Swal.fire("GAMEMPT", `Actualizando Créditos`, 'info');
+		Swal.fire("GAME FORTUNE", `Actualizando Créditos`, 'info');
+		await verifyMonitoreo();
 		Swal.showLoading();
 		CREDIT_FRUITS.credito = count;
 		CREDIT_FRUITS.acumulado = count;
@@ -113,7 +123,8 @@ Disponible: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumul
 		});
 	});
 	Acumular = (add) => new Promise(async (resolve, reject) => {
-		Swal.fire("GAMEMPT", `Acumulando Premio`, 'info');
+		Swal.fire("GAME FORTUNE", `Acumulando Premio`, 'info');
+		await verifyMonitoreo();
 		Swal.showLoading();
 		CREDIT_FRUITS.acumulado = parseInt(CREDIT_FRUITS.acumulado) + add;
 		$.ajax({
@@ -210,7 +221,7 @@ Disponible: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumul
 		$(oMain).on("recharge", function (evt) {
 			//INSERT HERE YOUR RECHARGE SCRIPT THAT RETURN MONEY TO RECHARGE
 			if (parseInt(CREDIT_FRUITS.credito) <= 0) {
-				Swal.fire("GAMEMPT", `Para recargar por favor indicar al encargado`, 'error');
+				Swal.fire("GAME FORTUNE", `Para recargar por favor indicar al encargado`, 'error');
 				return;
 			}
 		});
@@ -281,19 +292,19 @@ Disponible: <br><b style="color: mediumseagreen">${formatMoney(parseInt(d.acumul
 
 <!--//lareso-->
 <div>
-	<canvas id="canvas" class='ani_hack' width="1950" height="950"></canvas>
+	<canvas id="canvas" class='ani_hack' width="1500" height="640"></canvas>
 	<style>
 		#datax {
-			width: 188px;
-			height: 537px;
+			width: 100%;
+			height: 5%;
 			left: 0;
-			font-size: 23px;
-			top: 0px;
+			font-size: 3vh;
+			bottom: 0;
+			background-color: #2c2c2c;
 			vertical-align: middle;
 			color: white;
 			position: fixed;
 			text-align: center;
-			background-color: #401705;
 		}
 	</style>
 	<div id="datax">

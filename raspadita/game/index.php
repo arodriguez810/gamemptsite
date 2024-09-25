@@ -69,14 +69,13 @@
 	<!-- CANVAS START-->
 	<div id="canvasHolder">
 		<canvas id="gameCanvas" width="1280" height="768"></canvas>
-		<!--lareso-->
 		<style>
 			#datax {
-				width: 1058px;
-				height: 48px;
-				left: 220px;
-				font-size: 40px;
-				top: 617px;
+				width: 100%;
+				height: 5%;
+				left: 0;
+				font-size: 3vh;
+				bottom: 0;
 				background-color: #2c2c2c;
 				vertical-align: middle;
 				color: white;
@@ -103,9 +102,9 @@
 <script src="js/plugins.js"></script>
 <script src="js/sound.js"></script>
 <script src="js/canvas.js"></script>
-<script>
-	<?php include_once "../../access.php" ?>
-</script>
+
+<?php include_once "../../access.php" ?>
+
 <script>
 
 	////////////////////////////////////////////////////////////
@@ -541,13 +540,34 @@
 	}
 	updateDatax = () => {
 		let d = CREDIT_RASPADITA;
+		let probs = [];
+		if (parseInt(GANANCIAS.debug)) {
+			for (let i = 0; i < cardsSettings[0].prizes.length; i++) {
+				probs.push(`(${cardsSettings[0].prizes[i].value})=<b style="color: cornflowerblue">${cardsSettings[0].prizes[i].percent}%</b>`);
+			}
+			if (CARTA.presupuesto()) {
+				probs.push(`<br>Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
+				probs.push(`Premios:<b style="color: cornflowerblue">$${CARTA.premioMaximo()}</b>`);
+			}
+			$("#datax").css("height", "12%");
+		}
+
 		$("#datax").html(`
 Estación: <b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
-Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`
+			+ (probs.length ? `<br>Monitoreo: ${probs.join("|")}` : ``));
 	};
 	verifyData = () => new Promise(async (resolve, reject) => {
-		Swal.fire("GAMEMPT", `Verificando Créditos`, 'info');
+		Swal.fire("GAME FORTUNE", `Verificando Créditos`, 'info');
+		await verifyMonitoreo();
 		Swal.showLoading();
+		if (typeof cardsSettings !== "undefined") {
+			for (let i = 0; i < cardsSettings[0].prizes.length; i++) {
+				cardsSettings[0].prizes[i].percent = Math.floor(CARTA.probabilidad(GANANCIAS[`raspadita_probabilidad${i + 1}`], GANANCIAS[`raspadita_price${i + 1}`]));
+				cardsSettings[0].prizes[i].value = Math.floor(CARTA.monto(GANANCIAS[`raspadita_price${i + 1}`]));
+				cardsSettings[0].prizes[i].text.display = `${cardsSettings[0].prizes[i].value}`;
+			}
+		}
 		$.ajax({
 			type: "POST",
 			url: `${API}/estacion/list`,
@@ -572,7 +592,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		});
 	});
 	useCredit = (count) => new Promise(async (resolve, reject) => {
-		Swal.fire("GAMEMPT", `Actualizando Créditos`, 'info');
+		Swal.fire("GAME FORTUNE", `Actualizando Créditos`, 'info');
 		Swal.showLoading();
 		CREDIT_RASPADITA.credito = count;
 		CREDIT_RASPADITA.acumulado = count;
@@ -594,7 +614,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		});
 	});
 	Acumular = (add) => new Promise(async (resolve, reject) => {
-		Swal.fire("GAMEMPT", `Acumulando Premio`, 'info');
+		Swal.fire("GAME FORTUNE", `Acumulando Premio`, 'info');
 		Swal.showLoading();
 		CREDIT_RASPADITA.acumulado = parseInt(CREDIT_RASPADITA.acumulado) + add;
 		$.ajax({
@@ -610,7 +630,11 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		});
 	});
 	$(document).ready(() => {
+		verifyData();
 		updateDatax();
+		setTimeout(() => {
+			toggleFullScreen();
+		}, 1000)
 	});
 </script>
 </body>

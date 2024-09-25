@@ -395,7 +395,7 @@ function startGame() {
  */
 async function startSpin() {
   if (parseInt(CREDIT_LOTERIA.credito) <= 0) {
-    Swal.fire("GAMEMPT", `No posee créditos suficientes para jugar`, 'error');
+    Swal.fire("GAME FORTUNE", `No posee créditos suficientes para jugar`, 'error');
     return;
   }
   await useCredit();

@@ -81,14 +81,13 @@
 	<div id="canvasHolder">
 
 		<canvas id="gameCanvas" width="1500" height="680"></canvas>
-		<!--lareso-->
 		<style>
 			#datax {
-				width: 1280px;
-				height: 48px;
-				left: 110px;
-				font-size: 40px;
-				top: 627px;
+				width: 100%;
+				height: 5%;
+				left: 0;
+				font-size: 3vh;
+				bottom: 0;
 				background-color: #2c2c2c;
 				vertical-align: middle;
 				color: white;
@@ -105,9 +104,9 @@
 </div>
 <!-- CONTENT END-->
 
-<script>
-	<?php include_once "../../access.php" ?>
-</script>
+
+<?php include_once "../../access.php" ?>
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
 
@@ -329,7 +328,7 @@
 			await verifyData();
 			let need = parseFloat(GANANCIAS.lottery_cost_per_game);
 			if (parseInt(CREDIT_LOTERIA.credito) < need) {
-				Swal.fire("GAMEMPT", `No posee créditos suficientes para jugar, necesita por lo menos ${formatMoney(need)} Pesos disponibles`, 'error');
+				Swal.fire("GAME FORTUNE", `No posee créditos suficientes para jugar, necesita por lo menos ${formatMoney(need)} Pesos disponibles`, 'error');
 				return;
 			}
 			startSpin();
@@ -1530,13 +1529,35 @@
 	}
 	updateDatax = () => {
 		let d = CREDIT_LOTERIA;
+		let probs = [];
+		if (parseInt(GANANCIAS.debug)) {
+			for (let i = 0; i < 6; i++) {
+				probs.push(`(${i + 1})=<b style="color: cornflowerblue">${score_arr[i].percent}%</b>`);
+			}
+			if (CARTA.presupuesto()) {
+				probs.push(`Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
+				probs.push(`Premio:<b style="color: cornflowerblue">$${CARTA.premioMaximo()}</b>`);
+			}
+			$("#datax").css("height", "8%");
+		}
+
 		$("#datax").html(`
 Estación: <b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
-Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`
+			+ (probs.length ? `<br>Monitoreo: ${probs.join("|")}` : ``));
 	};
 	verifyData = () => new Promise(async (resolve, reject) => {
-		Swal.fire("GAMEMPT", `Verificando Créditos`, 'info');
+
+		Swal.fire("GAME FORTUNE", `Verificando Créditos`, 'info');
+		await verifyMonitoreo();
 		Swal.showLoading();
+		if (typeof score_arr !== "undefined") {
+			for (let i = 0; i < score_arr.length; i++) {
+				score_arr[i].prize = Math.floor(CARTA.monto(GANANCIAS[`lottery_acierto${i + 1}`]));
+				score_arr[i].percent = Math.floor(CARTA.probabilidad(GANANCIAS[`lottery_probabilidad${i + 1}`], score_arr[i].prize));
+			}
+			createPercentage();
+		}
 		$.ajax({
 			type: "POST",
 			url: `${API}/estacion/list`,
@@ -1560,8 +1581,9 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 			}
 		});
 	});
+
 	useCredit = () => new Promise(async (resolve, reject) => {
-		Swal.fire("GAMEMPT", `Actualizando Créditos`, 'info');
+		Swal.fire("GAME FORTUNE", `Actualizando Créditos`, 'info');
 		Swal.showLoading();
 		CREDIT_LOTERIA.credito = parseInt(CREDIT_LOTERIA.credito) - parseFloat(GANANCIAS.lottery_cost_per_game);
 		CREDIT_LOTERIA.acumulado = CREDIT_LOTERIA.credito;
@@ -1578,7 +1600,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		});
 	});
 	Acumular = (add) => new Promise(async (resolve, reject) => {
-		Swal.fire("GAMEMPT", `Acumulando Premio`, 'info');
+		Swal.fire("GAME FORTUNE", `Acumulando Premio`, 'info');
 		Swal.showLoading();
 		CREDIT_LOTERIA.credito = parseInt(CREDIT_LOTERIA.credito) + add;
 		CREDIT_LOTERIA.acumulado = CREDIT_LOTERIA.credito;
@@ -1595,7 +1617,11 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		});
 	});
 	$(document).ready(() => {
+		verifyData();
 		updateDatax();
+		setTimeout(() => {
+			toggleFullScreen();
+		}, 1000)
 	});
 </script>
 

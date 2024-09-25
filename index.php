@@ -27,9 +27,9 @@
 
 </head>
 <body data-path-to-root="/" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
-<script>
+
 	<?php include_once "access.php" ?>
-</script>
+
 <section class="u-clearfix u-palette-1-dark-3 u-section-1" id="sec-edf9">
 	<div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-none u-gallery-1" data-pswp-uid="1" style="height: 674px">
 		<div class="u-gallery-inner u-gallery-inner-1">
@@ -60,7 +60,7 @@
 
 <section class="u-backlink u-clearfix u-grey-80">
 	<p class="u-text">
-		<span>GAME MPTECH</span>
+		<span>GAME FORTUNE</span>
 	</p>
 </section>
 
