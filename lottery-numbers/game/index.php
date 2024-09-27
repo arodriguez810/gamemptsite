@@ -82,7 +82,7 @@
 
 		<canvas id="gameCanvas" width="1500" height="680"></canvas>
 		<style>
-			#datax {
+			.datax {
 				width: 100%;
 				height: 5%;
 				left: 0;
@@ -95,7 +95,10 @@
 				text-align: center;
 			}
 		</style>
-		<div id="datax">
+		<div id="datax" class="datax">
+
+		</div>
+		<div id="qax" class="datax" style="top:0 !important;font-size: 1.5vh;height: 2%;display: none">
 
 		</div>
 	</div>
@@ -1538,13 +1541,16 @@
 				probs.push(`Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
 				probs.push(`Premio:<b style="color: cornflowerblue">$${CARTA.premioMaximo()}</b>`);
 			}
-			$("#datax").css("height", "8%");
 		}
 
 		$("#datax").html(`
 Estación: <b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
-Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`
-			+ (probs.length ? `<br>Monitoreo: ${probs.join("|")}` : ``));
+Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+
+		if (probs.length) {
+			$("#qax").show();
+			$("#qax").html(`Monitoreo: ${probs.join("|")}`);
+		}
 	};
 	verifyData = () => new Promise(async (resolve, reject) => {
 

@@ -70,7 +70,7 @@
 	<div id="canvasHolder">
 		<canvas id="gameCanvas" width="1280" height="768"></canvas>
 		<style>
-			#datax {
+			.datax {
 				width: 100%;
 				height: 5%;
 				left: 0;
@@ -82,8 +82,12 @@
 				position: fixed;
 				text-align: center;
 			}
+
 		</style>
-		<div id="datax">
+		<div id="datax" class="datax">
+
+		</div>
+		<div id="qax" class="datax" style="top:0 !important;font-size: 1.5vh;height: 2%;display: none">
 
 		</div>
 	</div>
@@ -546,16 +550,21 @@
 				probs.push(`(${cardsSettings[0].prizes[i].value})=<b style="color: cornflowerblue">${cardsSettings[0].prizes[i].percent}%</b>`);
 			}
 			if (CARTA.presupuesto()) {
-				probs.push(`<br>Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
+				probs.push(`Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
 				probs.push(`Premios:<b style="color: cornflowerblue">$${CARTA.premioMaximo()}</b>`);
 			}
-			$("#datax").css("height", "12%");
+			// $("#datax").css("height", "12%");
 		}
 
 		$("#datax").html(`
 Estación: <b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
 Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`
 			+ (probs.length ? `<br>Monitoreo: ${probs.join("|")}` : ``));
+
+		if (probs.length) {
+			$("#qax").show();
+			$("#qax").html(`Monitoreo: ${probs.join("|")}`);
+		}
 	};
 	verifyData = () => new Promise(async (resolve, reject) => {
 		Swal.fire("GAME FORTUNE", `Verificando Créditos`, 'info');

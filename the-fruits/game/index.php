@@ -88,16 +88,18 @@
 		let d = CREDIT_FRUITS;
 		let probs = [];
 		if (parseInt(GANANCIAS.debug)) {
-			if (CARTA.presupuesto()) {
-				probs.push(`<br>Probabilidad de Ganar:<b style="color: cornflowerblue">{GANANCIAS.fruitswinrate}%</b>`);
-				probs.push(`<br>Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
-				probs.push(`Premios:<b style="color: cornflowerblue">$${CARTA.premioMaximo()}</b>`);
-			}
-			$("#datax").css("height", "8%");
+			probs.push(`Probabilidad de Ganar:<b style="color: cornflowerblue">${GANANCIAS.fruitswinrate}%</b>`);
+			probs.push(`Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
+			probs.push(`Premios:<b style="color: cornflowerblue">$${CARTA.premioMaximo()}</b>`);
 		}
 		$("#datax").html(`
 Estación:<b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
 Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
+
+		if (probs.length) {
+			$("#qax").show();
+			$("#qax").html(`Monitoreo: ${probs.join("|")}`);
+		}
 	};
 	useCredit = (count) => new Promise(async (resolve, reject) => {
 		Swal.fire("GAME FORTUNE", `Actualizando Créditos`, 'info');
@@ -140,7 +142,10 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		});
 	});
 	$(document).ready(() => {
-		updateDatax();
+		verifyMonitoreo().then(d=>{
+			updateDatax();
+			Swal.close();
+		});
 	});
 </script>
 <script>
@@ -294,7 +299,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 <div>
 	<canvas id="canvas" class='ani_hack' width="1500" height="640"></canvas>
 	<style>
-		#datax {
+		.datax {
 			width: 100%;
 			height: 5%;
 			left: 0;
@@ -307,7 +312,10 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 			text-align: center;
 		}
 	</style>
-	<div id="datax">
+	<div id="datax" class="datax">
+
+	</div>
+	<div id="qax" class="datax" style="top:0 !important;font-size: 1.5vh;height: 2%;display: none">
 
 	</div>
 </div>
