@@ -118,15 +118,9 @@ function CGame(oData) {
   };
 
   this.generateFinalSymbols = function () {
-    _aFinalSymbolCombo = new Array();
-    for (var i = 0; i < NUM_ROWS; i++) {
-      _aFinalSymbolCombo[i] = new Array();
-      for (var j = 0; j < NUM_REELS; j++) {
-        var iRandIndex = Math.floor(Math.random() * s_aRandSymbols.length);
-        var iRandSymbol = s_aRandSymbols[iRandIndex];
-        _aFinalSymbolCombo[i][j] = iRandSymbol;
-      }
-    }
+
+    _aFinalSymbolCombo = this.randomWin();
+    console.log(_aFinalSymbolCombo);
 
     //CHECK IF THERE IS ANY COMBO
     _aWinningLine = new Array();
@@ -467,6 +461,64 @@ function CGame(oData) {
     _iCurState = GAME_STATE_IDLE;
   };
 
+  this.rulleter = (num) => {
+    let next = num % s_aSymbolWin.length;
+    return next === 0 ? s_aSymbolWin.length : next;
+  }
+  this.randomWin = () => {
+    let realOcurrence = Math.floor(CARTA.probabilidad(WIN_OCCURRENCE));
+    let suerte = Math.floor(Math.random() * 101);
+    let max = CARTA.premioMaximo();
+    let isWIn = suerte > realOcurrence;
+    let possibles = [];
+    for (const row of s_aSymbolWin) {
+      const y = s_aSymbolWin.indexOf(row);
+      for (const col of row) {
+        const x = row.indexOf(col);
+        if (s_aSymbolWin[y][x] <= max)
+          possibles.push({
+            simbol: y + 1,
+            count: x + 1
+          });
+      }
+    }
+    let pizarra = [
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0]
+    ];
+    if (possibles.length && isWIn) {
+      let winner = possibles[Math.floor(Math.random() * possibles.length)];
+      let spinOffset = Math.floor(Math.random() * 6) + 1;
+      for (let i = 0; i < 5; i++) {
+        if (i < winner.count) {
+          pizarra[0][i] = this.rulleter(winner.simbol - 1);
+          pizarra[1][i] = this.rulleter(winner.simbol);
+          pizarra[2][i] = this.rulleter(winner.simbol + 1);
+        } else {
+          pizarra[0][i] = this.rulleter((winner.simbol - 1) + spinOffset);
+          pizarra[1][i] = this.rulleter(winner.simbol + spinOffset);
+          pizarra[2][i] = this.rulleter((winner.simbol + 1) + spinOffset);
+        }
+      }
+    } else {
+      let spinOffset = Math.floor(Math.random() * 7) + 1;
+      for (let i = 0; i < 5; i++) {
+        if (i === 1) {
+          let newOffSet = Math.floor(Math.random() * 7) + 1;
+          if (newOffSet === spinOffset)
+            newOffSet = this.rulleter(newOffSet + 1);
+          spinOffset = newOffSet;
+        } else if (i > 1) {
+          spinOffset = Math.floor(Math.random() * 7) + 1;
+        }
+        pizarra[0][i] = this.rulleter(spinOffset - 1);
+        pizarra[1][i] = this.rulleter(spinOffset);
+        pizarra[2][i] = this.rulleter(spinOffset + 1);
+      }
+    }
+    return pizarra;
+  }
   this.onSpin = function () {
 
     stopSound("win");
@@ -494,35 +546,14 @@ function CGame(oData) {
     MIN_WIN *= _iCurBet;
 
     _iMoney -= _iTotBet;
+
     useCredit(_iMoney).then(d => {
       playSound("reels", 1, false);
       _oInterface.refreshMoney(_iMoney);
       SLOT_CASH += _iTotBet;
 
       $(s_oMain).trigger("bet_placed", {bet: _iCurBet, tot_bet: _iTotBet});
-      //CHECK IF THERE IS MINIMUM AMOUNT FOR AT LEAST WORST WINNING
-      if (SLOT_CASH < MIN_WIN) {
-        //PLAYER MUST LOSE
-        do {
-          var bRet = this.generateFinalSymbols();
-        } while (bRet === true);
-      } else {
-        //RANDOM TO ASSIGN A WIN OR NOT
-        var iRandSpin = Math.floor(Math.random() * 101);
-
-        if (iRandSpin > WIN_OCCURRENCE) {
-          //PLAYER LOSES
-          do {
-            var bRet = this.generateFinalSymbols();
-          } while (bRet === true);
-
-        } else {
-          //PLAYER WINS
-          do {
-            var bRet = this.generateFinalSymbols();
-          } while (bRet === false || (_iTotWin * _iCurBet) > SLOT_CASH);
-        }
-      }
+      this.generateFinalSymbols();
 
 
       _oInterface.hideAllLines();

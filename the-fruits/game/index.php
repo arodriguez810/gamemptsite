@@ -142,7 +142,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		});
 	});
 	$(document).ready(() => {
-		verifyMonitoreo().then(d=>{
+		verifyMonitoreo().then(d => {
 			updateDatax();
 			Swal.close();
 		});
@@ -150,7 +150,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 </script>
 <script>
 	$(document).ready(function () {
-		var oMain = new CMain({
+		oMain = new CMain({
 			win_occurrence: parseInt(GANANCIAS.fruitswinrate),        //WIN PERCENTAGE.SET A VALUE FROM 0 TO 100.
 			slot_cash: FRUITS.slot_cash,          //THIS IS THE CURRENT SLOT CASH AMOUNT. THE GAME CHECKS IF THERE IS AVAILABLE CASH FOR WINNINGS.
 			min_reel_loop: FRUITS.min_reel_loop,          //NUMBER OF REEL LOOPS BEFORE SLOT STOPS
