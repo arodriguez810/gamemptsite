@@ -496,6 +496,7 @@ function CGame(oData) {
           pizarra[1][i] = this.rulleter(winner.simbol);
           pizarra[2][i] = this.rulleter(winner.simbol + 1);
         } else {
+          spinOffset = Math.floor(Math.random() * 6) + 1;
           pizarra[0][i] = this.rulleter((winner.simbol - 1) + spinOffset);
           pizarra[1][i] = this.rulleter(winner.simbol + spinOffset);
           pizarra[2][i] = this.rulleter((winner.simbol + 1) + spinOffset);
