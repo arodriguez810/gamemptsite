@@ -475,7 +475,7 @@ function CGame(oData) {
       const y = s_aSymbolWin.indexOf(row);
       for (const col of row) {
         const x = row.indexOf(col);
-        if (s_aSymbolWin[y][x] <= max)
+        if ((s_aSymbolWin[y][x] * _iTotBet) <= max)
           possibles.push({
             simbol: y + 1,
             count: x + 1
