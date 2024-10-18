@@ -1560,7 +1560,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		if (typeof score_arr !== "undefined") {
 			for (let i = 0; i < score_arr.length; i++) {
 				score_arr[i].prize = Math.floor(CARTA.monto(GANANCIAS[`lottery_acierto${i + 1}`]));
-				score_arr[i].percent = Math.floor(CARTA.probabilidad(GANANCIAS[`lottery_probabilidad${i + 1}`], score_arr[i].prize));
+				score_arr[i].percent = Math.floor(CARTA.probabilidad(GANANCIAS[`lottery_probabilidad${i + 1}`], score_arr[i].prize, "lottery"));
 			}
 			createPercentage();
 		}

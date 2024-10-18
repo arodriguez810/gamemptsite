@@ -93,7 +93,7 @@
 				return false;
 			return premio > CARTA.premioMaximo();
 		},
-		probabilidad: (prob, premio) => {
+		probabilidad: (prob, premio, game) => {
 			if (premio !== undefined && !GANANCIAS.balance_dinamico) {
 				if (CARTA.excedePremioMax(premio))
 					return 0;
@@ -107,6 +107,8 @@
 				return 0;
 			result = result > 100 ? 100 : result;
 			result = result < 0 ? 0 : result;
+			if (result > prob)
+				result = result / (game ? ((parseInt(GANANCIAS[`balance_${game}`]) || 1)) : 1);
 			return result;
 		},
 		monto: (prob) => {

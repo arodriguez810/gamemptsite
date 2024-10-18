@@ -572,7 +572,7 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		Swal.showLoading();
 		if (typeof cardsSettings !== "undefined") {
 			for (let i = 0; i < cardsSettings[0].prizes.length; i++) {
-				cardsSettings[0].prizes[i].percent = Math.floor(CARTA.probabilidad(GANANCIAS[`raspadita_probabilidad${i + 1}`], GANANCIAS[`raspadita_price${i + 1}`]));
+				cardsSettings[0].prizes[i].percent = Math.floor(CARTA.probabilidad(GANANCIAS[`raspadita_probabilidad${i + 1}`], GANANCIAS[`raspadita_price${i + 1}`], "raspa"));
 				cardsSettings[0].prizes[i].value = Math.floor(CARTA.monto(GANANCIAS[`raspadita_price${i + 1}`]));
 				cardsSettings[0].prizes[i].text.display = `${cardsSettings[0].prizes[i].value}`;
 			}
