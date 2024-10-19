@@ -66,7 +66,6 @@
 					if (monitoreo) {
 						GANANCIAS.balance_dinamico = monitoreo.balance_dinamico;
 						GANANCIAS.balance_inicial = monitoreo.balance_inicial;
-						GANANCIAS.indice_ganancia = monitoreo.indice_ganancia;
 						GANANCIAS.presupuesto = monitoreo.presupuesto;
 						GANANCIAS.probabilidad_dinamica = monitoreo.probabilidad_dinamica;
 					}
@@ -80,13 +79,11 @@
 	CARTA = {
 		presupuesto: () => parseFloat(GANANCIAS.presupuesto) || 0,
 		indice: () => {
-			return (CARTA.presupuesto() * 100 / (parseFloat(GANANCIAS.balance_inicial))) - 100 - (GANANCIAS.indice_ganancia || 0);
+			return (CARTA.presupuesto() * 100 / (parseFloat(GANANCIAS.balance_inicial))) - 100;
 		},
 		premioMaximo: () => {
 			let inicial = parseFloat(GANANCIAS.balance_inicial);
-			let inx = GANANCIAS.indice_ganancia;
-			let meta = inicial * ((inx / 100) + 1);
-			return CARTA.presupuesto() - meta;
+			return CARTA.presupuesto() - inicial;
 		},
 		excedePremioMax: (premio) => {
 			if (GANANCIAS.balance_dinamico)
