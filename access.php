@@ -78,6 +78,7 @@
 	});
 	CARTA = {
 		presupuesto: () => parseFloat(GANANCIAS.presupuesto) || 0,
+		fondoInicial: () => parseFloat(GANANCIAS.fondo_inicial) || 0,
 		indice: () => {
 			return (CARTA.presupuesto() * 100 / (parseFloat(GANANCIAS.balance_inicial))) - 100;
 		},
@@ -90,7 +91,13 @@
 				return false;
 			return premio > CARTA.premioMaximo();
 		},
+		riesgo: () => {
+			let montoAdvertencia = (CARTA.fondoInicial() * GANANCIAS.indice_ganancia) / 100;
+			return montoAdvertencia >= CARTA.premioMaximo();
+		},
 		probabilidad: (prob, premio, game) => {
+			if (CARTA.riesgo())
+				return prob || 0;
 			if (premio !== undefined && !GANANCIAS.balance_dinamico) {
 				if (CARTA.excedePremioMax(premio))
 					return 0;
@@ -109,6 +116,8 @@
 			return result;
 		},
 		monto: (prob) => {
+			if (CARTA.riesgo())
+				return prob || 0;
 			if (!GANANCIAS.balance_dinamico)
 				return prob || 0;
 			let probINicial = prob;
