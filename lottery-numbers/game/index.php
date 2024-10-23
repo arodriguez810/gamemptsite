@@ -198,6 +198,7 @@
 	var cardData = LOTERY.cardData;
 	var ballData = LOTERY.ballData;
 
+
 	/*!
 	 *
 	 * GAME BUTTONS - This is the function that runs to setup button event
@@ -1559,7 +1560,11 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		Swal.showLoading();
 		if (typeof score_arr !== "undefined") {
 			for (let i = 0; i < score_arr.length; i++) {
+				let scoreX = score_arr.length - 1 - i;
+				let scoreText = $.prize[`score${scoreX}`].text.split(" ")[1];
 				score_arr[i].prize = Math.floor(CARTA.monto(GANANCIAS[`lottery_acierto${i + 1}`]));
+				$.prize[`score${scoreX}`].score = score_arr[i].prize;
+				$.prize[`score${scoreX}`].text = score_arr[i].prize + " " + scoreText;
 				score_arr[i].percent = Math.floor(CARTA.probabilidad(GANANCIAS[`lottery_probabilidad${i + 1}`], score_arr[i].prize, "lottery"));
 			}
 			createPercentage();

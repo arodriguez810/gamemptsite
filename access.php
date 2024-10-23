@@ -65,9 +65,22 @@
 					let monitoreo = data.data[0];
 					if (monitoreo) {
 						GANANCIAS.balance_dinamico = monitoreo.balance_dinamico;
+						GANANCIAS.fondo_inicial = monitoreo.fondo_inicial;
 						GANANCIAS.balance_inicial = monitoreo.balance_inicial;
 						GANANCIAS.presupuesto = monitoreo.presupuesto;
 						GANANCIAS.probabilidad_dinamica = monitoreo.probabilidad_dinamica;
+						Object.keys(monitoreo).forEach(field => {
+							if (field.indexOf("ganacia_") !== -1) {
+								let realField = field.replace("ganacia_", "");
+								if ((monitoreo[field] + "").indexOf(".") !== -1)
+									GANANCIAS[realField] = parseFloat(monitoreo[field]) || 0;
+								else if (monitoreo[field])
+									GANANCIAS[realField] = parseInt(monitoreo[field]) || 0;
+								else
+									GANANCIAS[realField] = monitoreo[field] || 0;
+							}
+						});
+
 					}
 					console.log(monitoreo)
 					updateDatax();
@@ -96,7 +109,7 @@
 			return montoAdvertencia >= CARTA.premioMaximo();
 		},
 		probabilidad: (prob, premio, game) => {
-			if (CARTA.riesgo())
+			if (!CARTA.riesgo())
 				return prob || 0;
 			if (premio !== undefined && !GANANCIAS.balance_dinamico) {
 				if (CARTA.excedePremioMax(premio))
@@ -116,7 +129,7 @@
 			return result;
 		},
 		monto: (prob) => {
-			if (CARTA.riesgo())
+			if (!CARTA.riesgo())
 				return prob || 0;
 			if (!GANANCIAS.balance_dinamico)
 				return prob || 0;
