@@ -92,6 +92,56 @@
 			probs.push(`Caja:<b style="color: cornflowerblue">$${CARTA.presupuesto()}</b>`);
 			probs.push(`Premios:<b style="color: cornflowerblue">$${CARTA.premioMaximo()}</b>`);
 		}
+		s_aSymbolWin = [
+			[
+				parseInt(GANANCIAS.fruits_cereza1),
+				parseInt(GANANCIAS.fruits_cereza2),
+				parseInt(GANANCIAS.fruits_cereza3),
+				parseInt(GANANCIAS.fruits_cereza4),
+				parseInt(GANANCIAS.fruits_cereza5)],
+			[
+				parseInt(GANANCIAS.fruits_pera1),
+				parseInt(GANANCIAS.fruits_pera2),
+				parseInt(GANANCIAS.fruits_pera3),
+				parseInt(GANANCIAS.fruits_pera4),
+				parseInt(GANANCIAS.fruits_pera5)
+			],
+			[
+				parseInt(GANANCIAS.fruits_sandia1),
+				parseInt(GANANCIAS.fruits_sandia2),
+				parseInt(GANANCIAS.fruits_sandia3),
+				parseInt(GANANCIAS.fruits_sandia4),
+				parseInt(GANANCIAS.fruits_sandia5)
+			],
+			[
+				parseInt(GANANCIAS.fruits_naranja1),
+				parseInt(GANANCIAS.fruits_naranja2),
+				parseInt(GANANCIAS.fruits_naranja3),
+				parseInt(GANANCIAS.fruits_naranja4),
+				parseInt(GANANCIAS.fruits_naranja5)
+			],
+			[
+				parseInt(GANANCIAS.fruits_k1),
+				parseInt(GANANCIAS.fruits_k2),
+				parseInt(GANANCIAS.fruits_k3),
+				parseInt(GANANCIAS.fruits_k4),
+				parseInt(GANANCIAS.fruits_k5)
+			],
+			[
+				parseInt(GANANCIAS.fruits_q1),
+				parseInt(GANANCIAS.fruits_q2),
+				parseInt(GANANCIAS.fruits_q3),
+				parseInt(GANANCIAS.fruits_q4),
+				parseInt(GANANCIAS.fruits_q5)
+			],
+			[
+				parseInt(GANANCIAS.fruits_j1),
+				parseInt(GANANCIAS.fruits_j2),
+				parseInt(GANANCIAS.fruits_j3),
+				parseInt(GANANCIAS.fruits_j4),
+				parseInt(GANANCIAS.fruits_j5)
+			]
+		];
 		$("#datax").html(`
 Estación:<b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
 Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
