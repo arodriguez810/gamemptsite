@@ -109,9 +109,10 @@
 			return montoAdvertencia >= CARTA.premioMaximo();
 		},
 		probabilidad: (prob, premio, game) => {
-			if (!CARTA.riesgo())
-				return prob || 0;
-			if (premio !== undefined && !GANANCIAS.balance_dinamico) {
+			if (GANANCIAS.probabilidad_dinamica)
+				if (!CARTA.riesgo())
+					return prob || 0;
+			if (premio !== undefined) {
 				if (CARTA.excedePremioMax(premio))
 					return 0;
 			}
@@ -129,10 +130,9 @@
 			return result;
 		},
 		monto: (prob) => {
-			if (!CARTA.riesgo())
-				return prob || 0;
-			if (!GANANCIAS.balance_dinamico)
-				return prob || 0;
+			if (GANANCIAS.probabilidad_dinamica)
+				if (!CARTA.riesgo())
+					return prob || 0;
 			let probINicial = prob;
 			let modifier = CARTA.indice() / 100;
 			let result = probINicial * modifier;
