@@ -142,6 +142,7 @@
 				parseInt(GANANCIAS.fruits_j5)
 			]
 		];
+		WIN_OCCURRENCE = parseInt(GANANCIAS.fruitswinrate);
 		$("#datax").html(`
 Estación:<b style="color: cornflowerblue">${d.comercio}/${d.estacion}</b>
 Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado))}</b>`);
