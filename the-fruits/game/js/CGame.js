@@ -470,7 +470,7 @@ function CGame(oData) {
     let realOcurrence = Math.floor(CARTA.probabilidad(WIN_OCCURRENCE, undefined, "fruits"));
     let suerte = Math.floor(Math.random() * 101);
     let max = CARTA.premioMaximo();
-    let isWIn = suerte < realOcurrence;
+    let isWIn = suerte <= realOcurrence;
     let possibles = [];
     for (const row of s_aSymbolWin) {
       const y = s_aSymbolWin.indexOf(row);
