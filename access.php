@@ -134,12 +134,9 @@
 			if (GANANCIAS.probabilidad_dinamica)
 				if (!CARTA.riesgo())
 					return prob || 0;
-			let probINicial = prob;
-			let modifier = CARTA.indice() / 100;
-			let result = probINicial * modifier;
-			if (isNaN(result) || result < 0)
+			if (isNaN(prob) || prob < 0)
 				return 1;
-			return Math.ceil(result);
+			return Math.ceil(prob);
 		}
 	};
 </script>
