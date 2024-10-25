@@ -466,6 +466,7 @@ function CGame(oData) {
     return next === 0 ? s_aSymbolWin.length : next;
   }
   this.randomWin = () => {
+    debugger
     let realOcurrence = Math.floor(CARTA.probabilidad(WIN_OCCURRENCE, undefined, "fruits"));
     let suerte = Math.floor(Math.random() * 101);
     let max = CARTA.premioMaximo();
