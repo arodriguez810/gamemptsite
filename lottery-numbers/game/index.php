@@ -1555,9 +1555,17 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 	};
 	verifyData = () => new Promise(async (resolve, reject) => {
 
+		if (!$.prize[`score${0}`] || !$.prize[`score${0}`]?.text) {
+			setTimeout(() => {
+				verifyData();
+				resolve(true);
+			}, 1000);
+			return
+		}
 		Swal.fire("GAME FORTUNE", `Verificando Créditos`, 'info');
 		await verifyMonitoreo();
 		Swal.showLoading();
+
 		if (typeof score_arr !== "undefined") {
 			for (let i = 0; i < score_arr.length; i++) {
 				let scoreX = score_arr.length - 1 - i;
@@ -1627,6 +1635,14 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 			}
 		});
 	});
+
+</script>
+
+<script src="js/mobile.js"></script>
+<script src="js/main.js"></script>
+<script src="js/loader.js"></script>
+<script src="js/init.js"></script>
+<script>
 	$(document).ready(() => {
 		verifyData();
 		updateDatax();
@@ -1635,11 +1651,6 @@ Disponible: <b style="color: mediumseagreen">${formatMoney(parseInt(d.acumulado)
 		}, 1000)
 	});
 </script>
-
-<script src="js/mobile.js"></script>
-<script src="js/main.js"></script>
-<script src="js/loader.js"></script>
-<script src="js/init.js"></script>
 </body>
 
 
