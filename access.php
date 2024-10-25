@@ -125,8 +125,9 @@
 				return 0;
 			result = result > 100 ? 100 : result;
 			result = result < 0 ? 0 : result;
-			if (result > prob)
-				result = result / (game ? ((parseInt(GANANCIAS[`balance_${game}`]) || 1)) : 1);
+			if (GANANCIAS.probabilidad_dinamica)
+				if (result > prob)
+					result = result / (game ? ((parseInt(GANANCIAS[`balance_${game}`]) || 1)) : 1);
 			return result;
 		},
 		monto: (prob) => {
@@ -138,9 +139,6 @@
 			let result = probINicial * modifier;
 			if (isNaN(result) || result < 0)
 				return 1;
-			if (GANANCIAS.balance_dinamico)
-				if (Math.ceil(result) > CARTA.premioMaximo())
-					return Math.floor(CARTA.premioMaximo());
 			return Math.ceil(result);
 		}
 	};
