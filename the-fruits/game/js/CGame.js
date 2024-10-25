@@ -466,7 +466,6 @@ function CGame(oData) {
     return next === 0 ? s_aSymbolWin.length : next;
   }
   this.randomWin = () => {
-    debugger
     let realOcurrence = Math.floor(CARTA.probabilidad(WIN_OCCURRENCE, undefined, "fruits"));
     let suerte = Math.floor(Math.random() * 101);
     let max = CARTA.premioMaximo();
@@ -476,11 +475,12 @@ function CGame(oData) {
       const y = s_aSymbolWin.indexOf(row);
       for (const col of row) {
         const x = row.indexOf(col);
-        if ((s_aSymbolWin[y][x] * _iTotBet) <= max)
-          possibles.push({
-            simbol: y + 1,
-            count: x + 1
-          });
+        if (x + 1 > 1)
+          if ((s_aSymbolWin[y][x] * _iTotBet) <= max)
+            possibles.push({
+              simbol: y + 1,
+              count: x + 1
+            });
       }
     }
     let pizarra = [
