@@ -133,6 +133,10 @@ function buildGameButton() {
 
   buttonExit.cursor = "pointer";
   buttonExit.addEventListener("click", function (evt) {
+    if (curPage === "main") {
+      history.back()
+      return;
+    }
     togglePop(true);
     toggleOption();
   });

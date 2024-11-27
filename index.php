@@ -46,13 +46,6 @@
 				</div>
 				<div class="u-over-slide u-shading u-over-slide-2"></div>
 			</div>
-			<div class="u-effect-hover-zoom u-gallery-item">
-				<div class="u-back-slide" data-image-width="1200" data-image-height="866"
-					 onclick="location.href='the-fruits/game'+location.search">
-					<img class="u-back-image u-expanded" src="games/thefruits.png<?php echo '?a=' . time(); ?>">
-				</div>
-				<div class="u-over-slide u-shading u-over-slide-3"></div>
-			</div>
 		</div>
 	</div>
 </section>

@@ -425,7 +425,7 @@ function resizeCanvas() {
     var distanceNum = 60;
     var nextCount = 0;
     if (curPage != 'game') {
-      buttonExit.visible = false;
+      buttonExit.visible = true;
       buttonSoundOn.x = buttonSoundOff.x = buttonSettings.x;
       buttonSoundOn.y = buttonSoundOff.y = buttonSettings.y + distanceNum;
       buttonSoundOn.x = buttonSoundOff.x;
@@ -444,6 +444,8 @@ function resizeCanvas() {
       buttonFullscreen.x = buttonSettings.x;
       buttonFullscreen.y = buttonSettings.y + (distanceNum * (nextCount + 1));
       buttonFullscreen.visible = false;
+      buttonExit.x = buttonSettings.x;
+      buttonExit.y = buttonSettings.y + (distanceNum * (nextCount + 1));
     } else {
       buttonExit.visible = true;
       buttonSoundOn.x = buttonSoundOff.x = buttonSettings.x;
